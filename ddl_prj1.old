@@ -3,10 +3,6 @@
 -- DDL 100% SQL (ANSI), pronto para PostgreSQL 12+
 -- =============================================================
 
--- (Opcional) Schema dedicado ao projeto
--- CREATE SCHEMA prj1 AUTHORIZATION CURRENT_USER;
--- SET search_path TO prj1, public;
-
 -- =============================================================
 -- TABELAS PRINCIPAIS
 -- =============================================================
@@ -275,9 +271,10 @@ COMMENT ON COLUMN TB_CERTIFICADO.CD_VALIDACAO    IS 'Código único de validaç�
 
 COMMENT ON TABLE  TA_AUDITORIA                   IS 'Trilha de auditoria (MAD/PPP). Registros feitos explicitamente por SQL nas rotinas de manipulação.';
 
--- Se desejar comentar o banco (substitua NOME_DO_BANCO por seu DB real):
--- COMMENT ON DATABASE NOME_DO_BANCO IS 'PRJ1 - Banco do Sistema de Gestão de Atividades de Extensão Universitária';
+
+-- PRJ1 - Banco do Sistema de Gestão de Atividades de Extensão Universitária
 
 -- =============================================================
 -- FIM DO DDL
 -- =============================================================
+
