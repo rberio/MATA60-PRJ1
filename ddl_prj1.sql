@@ -33,12 +33,14 @@ CREATE TABLE TB_ATIVIDADE (
     DS_LOCAL             VARCHAR(100),
     ST_ATIVA             BOOLEAN          DEFAULT TRUE,
     CONSTRAINT PK_TB_ATIVIDADE PRIMARY KEY (ID_ATIVIDADE),
+    CONSTRAINT CK_ATIVIDADE_VAGAS CHECK (QT_VAGAS >= 0),
     CONSTRAINT FK_TB_ATIVIDADE_EVENTO
         FOREIGN KEY (ID_EVENTO)
         REFERENCES TB_EVENTO (ID_EVENTO)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT CK_TB_ATIVIDADE_HORAS CHECK (HR_INICIO IS NULL OR HR_FIM IS NULL OR HR_INICIO <= HR_FIM)
+    
 );
 
 -- PARTICIPANTE: pessoa que se inscreve nas atividades
@@ -194,10 +196,13 @@ CREATE TABLE TA_AUDITORIA (
     ID_AUDITORIA         INTEGER GENERATED ALWAYS AS IDENTITY,
     DT_OPERACAO          TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     NM_TABELA            VARCHAR(50)      NOT NULL,
-    TP_OPERACAO          VARCHAR(10)      NOT NULL,   -- 'INSERT','UPDATE','DELETE'
+    TP_OPERACAO          CHAR(1)          NOT NULL, -- 'I','U','D' conforme MAD
     ID_REGISTRO          VARCHAR(60),                 -- armazenar PK do registro afetado
-    USUARIO_RESPONSAVEL  VARCHAR(120),
-    DETALHE              VARCHAR(1000),
+    NM_USUARIO_BD        VARCHAR(50)      DEFAULT CURRENT_USER, -- Exigência MAD
+    NM_USUARIO_APLICACAO VARCHAR(50),                           -- Exigência MAD
+    NM_TERMINAL          VARCHAR(50),                           -- Exigência MAD
+    DS_VALOR_ANTIGO      TEXT,                                 -- Dados antes da mudança
+    DS_VALOR_NOVO        TEXT,                                 -- Dados depois da mudança
     CONSTRAINT PK_TA_AUDITORIA PRIMARY KEY (ID_AUDITORIA)
 );
 
