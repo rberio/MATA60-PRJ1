@@ -60,8 +60,8 @@ BEGIN
     
     -- Teste 4: Foreign Keys (Comportamento já existente)
     BEGIN
-        INSERT INTO tb_certificado (id_participante, id_atividade, qt_carga_horaria, dt_emissao, cd_validacao)
-        VALUES (999999, 999999, 5.0, CURRENT_DATE, 'TESTE_FAIL');
+        INSERT INTO tb_certificado (id_participante, id_atividade, dt_emissao, cd_validacao)
+        VALUES (999999, 999999, CURRENT_DATE, 'TESTE_FAIL');
         RAISE NOTICE '✗ Teste 4 FAIL: Inserção ilegal de certificado permitida';
     EXCEPTION WHEN foreign_key_violation THEN
         RAISE NOTICE '✓ Teste 4 PASS: FK impede certificado sem registro pai';
@@ -111,4 +111,5 @@ BEGIN
     
     RAISE NOTICE '';
     RAISE NOTICE '=== TESTES CONCLUÍDOS ===';
+
 END $$;
